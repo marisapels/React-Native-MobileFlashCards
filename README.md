@@ -9,8 +9,8 @@ Use yarn install from command prompt or terminal in project folder.
 For test run from command prompt or terminal:<br />
 yarn start -> Choose i to open iOS simulator
 
-## NOTE
-Only tested on iOS.<br />
+## Warning
+Only tested on iOS simulator.
 
 
 
