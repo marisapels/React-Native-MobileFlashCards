@@ -3,19 +3,30 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default class App extends React.Component {
   
+  state = {
+    deck:{name:'',questions:[]},
+  }
 
+  componentDidMount(){
+    
+    const deck = this.props.navigation.getParam('deck');
+    this.setState({deck}); 
+   
+  }
 
   handleGoTo(destionation){
+    const deck = this.state.deck;
     this.props.navigation.navigate(
-      destionation
+      destionation,{deck}
     )
   }
 
   render() {
+   
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Deck title</Text>
-        <Text>5 cards</Text>
+        <Text style={styles.title}>{this.state.deck.name}</Text>
+        <Text>{this.state.deck.questions.length} cards</Text>
         <Button 
         title="Add Card"
         onPress={() => {this.handleGoTo('AddCard')}}

@@ -1,21 +1,29 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { saveQuestions }   from '../../utils/storage';
 
 export default class AddCard extends React.Component {
 
   state = {
+    deck:{},
     question:'',
     answer:''
   }
 
+  componentDidMount(){
+    const deck = this.props.navigation.getParam('deck');
+    this.setState({deck}); 
+  }
+
   handleSubmit(){
-    const deck = {title:this.state.deckName,questions: []}
+    let deck = this.state.deck;
 
-
+    deck.questions.push({question:this.state.question,answer:this.state.answer})
+    saveQuestions(deck);
     this.props.navigation.navigate(
       'Deck',
-      { deck }
+      deck
     )
   }
 

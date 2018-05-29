@@ -12,12 +12,12 @@ export default class App extends React.Component {
   handleSubmit(){
     const deck = {name:this.state.deckName,questions: []}
 
-    saveDeckTitle(deck)
-   // .then(() => {
-   //   this.props.navigation.navigate(
-   //     'Deck',
-   //     { deck }
-   //   )})
+    saveDeckTitle(deck);
+    
+      this.props.navigation.navigate(
+        'Deck',
+        { deck }
+      )
     }
 
   render() {

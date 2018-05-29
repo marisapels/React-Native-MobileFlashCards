@@ -2,6 +2,7 @@ import React from 'react';
 import { getDecks }   from '../../utils/storage';
 import { AsyncStorage } from 'react-native';
 
+
 import { 
   StyleSheet, Text, View, 
   ScrollView, TouchableOpacity 
@@ -9,37 +10,43 @@ import {
 
 export default class DeckList extends React.Component {
   
+  state = {
+    decks:[]
+  }
 
-
-  handleDeckPress(destionation = 'Deck'){
+  handleDeckPress(destionation = 'Deck',deck){
     this.props.navigation.navigate(
-      destionation
+      destionation,{deck}
     )
   }
 
   componentDidMount = () => {
     AsyncStorage.getItem('Decks').then((_decks) => {
       let decks = JSON.parse(_decks);
-      this.props.decks = decks;
+   
+      this.setState({decks});
+  
       }
     )
   }
 
   render() {
+
+    
     return (
       <View style={styles.container}>
           <ScrollView contentContainerStyle={styles.scrollView}>
-              {this.props.decks && this.props.decks.map((deck) => {
-              <TouchableOpacity style={styles.deck} onPress={() => this.handleDeckPress()}>
-                  <Text style={styles.title}>Deck Name</Text>
-                  <Text>5 cards</Text>
-              </TouchableOpacity>
-              })}
+     
+          
+  
 
-             <TouchableOpacity style={styles.deck} onPress={() => this.handleDeckPress()}>
-                  <Text style={styles.title}>funky Name</Text>
-                  <Text>5 cards</Text>
-              </TouchableOpacity>
+          {this.state.decks.map(deck => (
+          
+                <TouchableOpacity key={deck.name} style={styles.deck} onPress={() => this.handleDeckPress('Deck',deck)}>
+                    <Text style={styles.title}>{deck.name}</Text>
+                    <Text>{deck.questions.length} cards</Text>
+                </TouchableOpacity>
+            ))}
 
               <TouchableOpacity style={styles.deckAdd} onPress={() => this.handleDeckPress('NewDeck')}>
                   <Text style={styles.title}>Add Deck</Text>
