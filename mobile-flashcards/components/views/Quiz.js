@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { clearLocalNotification, setLocalNotification } from '../../utils/notifications';
+
 
 export default class Quiz extends React.Component {
   state = {
@@ -28,6 +30,8 @@ handleTruthOrFalse(success){
     this.setState({current:this.state.current + 1});
     this.setState({'mode':'question'})
   }else{
+    clearLocalNotification()
+      .then(setLocalNotification);
     this.setState({'mode':'score'});
   }
 }
