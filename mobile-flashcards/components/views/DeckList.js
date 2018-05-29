@@ -40,7 +40,7 @@ export default class DeckList extends React.Component {
           
   
 
-          {this.state.decks.map(deck => (
+          {this.state.decks && this.state.decks.map(deck => (
           
                 <TouchableOpacity key={deck.name} style={styles.deck} onPress={() => this.handleDeckPress('Deck',deck)}>
                     <Text style={styles.title}>{deck.name}</Text>
